@@ -29,3 +29,60 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.collection {
+
+  @media (max-width: 399px) and (min-width: 0px) {
+    column-count: 2;
+  }
+  @media (max-width: 799px) and (min-width: 400px) {
+    column-count: 3;
+  }
+  @media (max-width: 1199px) and (min-width: 800px) {
+    column-count: 4;
+  }
+  @media (max-width: 1599px) and (min-width: 1200px) {
+    column-count: 5;
+  }
+  @media (max-width: 1999px) and (min-width: 1600px) {
+    column-count: 6;
+  }
+  @media (min-width: 2400px) {
+    column-count: 7;
+  }
+}
+
+.collection-item {
+  display: inline-block;
+  padding: 12px 12px 28px 12px;
+  border-radius: 12px;
+  cursor: zoom-in;
+  img {
+    border-radius: 12px;
+  }
+  ion-button {
+    display: none;
+    position: absolute;
+    top: 20px;
+  }
+}
+
+.collection-item:hover {
+  animation: tapAnimation 0.25s cubic-bezier(0.31, 1, 0.34, 1) forwards;
+  ion-button {
+    display: block;
+    position: absolute;
+    top: 20px;
+  }
+}
+
+@keyframes tapAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(0.96);}
+  100% {
+    opacity: 1;
+    background: rgba($color:#948dd8, $alpha: 1.0);
+    transform: scale(1);
+  }
+}
