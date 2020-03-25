@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ModalController } from '@ionic/angular';
+import { ImageService } from '../image.service';
+import { Image } from '../image.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-image',
@@ -7,25 +10,23 @@ import { NavParams, ModalController } from '@ionic/angular';
   styleUrls: ['./image.page.scss'],
 })
 export class ImagePage implements OnInit {
-  img: {};
+  information = null;
 
-  sliderOpts = {
-    zoom: {
-      maxRatio: 3
-    }
-  }
-
-  constructor(private navParams: NavParams, private modalController: ModalController) { }
+  constructor(private activatedRoute: ActivatedRoute, private imageService:ImageService) { }
 
   ngOnInit() {
-    this.img = this.navParams.get('img');
-  }
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
 
-  zoom(zoomIn: boolean){
-
-  }
-
-  close() {
-    this.modalController.dismiss();
-  }
+    this.imageService.getImage(id).subscribe(result => {
+      console.log('image: ',result);
+      this.information = result;
+  });
 }
+
+  // private getImage(): void{
+  //   this.imageService.getImage().subscribe(
+  //     (response:any) => {
+  //       this.image = response.image;
+  //     }
+  //   )
+  }

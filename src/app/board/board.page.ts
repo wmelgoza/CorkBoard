@@ -11,8 +11,9 @@ import { Title } from '@angular/platform-browser';
 })
 export class BoardPage implements OnInit {
 
-  board: Board
-  title: String
+  board: Board;
+  title: String;
+  author: String;
 
   constructor(
     private boardservice: BoardService,
@@ -20,24 +21,16 @@ export class BoardPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.route.params.subscribe(
-      // (params)=>{
-        // if(params['title']){
-          // this.getBoard(params['board']);
-      // }else{
-        // var title=new Title;
-        // title.setDate(title.getTitle()-1);
-        // this.getBoard(title.toISOString().slice(0, 10));
+    this.activatedroute.params.subscribe(params=>{
+      this.getBoard(params['boardTitle']);
+    });
+  }
+
+  getBoard(title:string):void {
+    this.boardservice.getBoard(title).subscribe(
+      (response:any)=>{
+        this.board = response.board;
       }
-    }
-    // );
-  // }
-  // };
-  // getBoard(title:string):void {
-    // this.boardService.getBoard(title)
-      // .subscribe((result:any) => {
-
-        // this.board = result;
-      // })
-  // }
-
+    )
+  }
+}

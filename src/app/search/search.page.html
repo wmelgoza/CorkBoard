@@ -1,0 +1,27 @@
+<ion-header [translucent]="true"  >
+  <ion-toolbar color="primary">
+    <ion-title>
+      Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)"></ion-searchbar>
+
+  <ion-item>
+    <ion-label>Select Search Type</ion-label>
+    <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+    <ion-select-option value="">All</ion-select-option>
+    <ion-select-option value="id">ID</ion-select-option>
+    <ion-select-option value="author">Author</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-item button *ngFor="let item of (results | async)" [routerLink]="['/', 'image', item.picsum.photosID]">
+      {{item.Author}}
+    </ion-item>
+  </ion-list>
+</ion-content>

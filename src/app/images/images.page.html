@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Images
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-button (click)="presentAlertMultipleButtons()">Welcome</ion-button>
+  </div>
+
+  <div class="collection ion-padding">
+  <div class="collection-item" text-center *ngFor="let img of imageList">
+    <ion-button>
+      <ion-icon name="add" slot="start"></ion-icon>
+      Add
+    </ion-button>
+    <img [src]="img.download_url"/>
+    {{ img.author }}
+  </div>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadImages($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading Images...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
