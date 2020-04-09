@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { DataResolverService } from './data-resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'images', pathMatch: 'full' },
@@ -16,9 +17,19 @@ const routes: Routes = [
   { path: 'board-create', loadChildren: './board-create/board-create.module#BoardCreatePageModule'},
   { path: 'board-edit', loadChildren: './board-edit/board-edit.module#BoardEditPageModule'},
   { path: 'board-delete', loadChildren: './board-delete/board-delete.module#BoardDeletePageModule'},
-  { path: 'image/:id', loadChildren: './image/image.module#ImagePageModule'},
+  {
+    path: 'image/:id',
+    resolve: {
+      data: DataResolverService
+    },
+    loadChildren: './image/image.module#ImagePageModule'},
+  { path: 'image', loadChildren: './image/image.module#ImagePageModule'},
   { path: 'search', loadChildren: './search/search.module#SearchPageModule'},
   { path: 'images', loadChildren: './images/images.module#ImagesPageModule'},
+  {
+    path: 'add-image',
+    loadChildren: () => import('./add-image/add-image.module').then( m => m.AddImagePageModule)
+  },
 ];
 
 @NgModule({

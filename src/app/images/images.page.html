@@ -13,9 +13,8 @@
 
   <div class="collection ion-padding">
   <div class="collection-item" text-center *ngFor="let img of imageList">
-    <ion-button>
-      <ion-icon name="add" slot="start"></ion-icon>
-      Add
+    <ion-button shape="round">
+      <ion-icon name="add" slot="icon-only"></ion-icon>
     </ion-button>
     <img [src]="img.download_url"/>
     {{ img.author }}

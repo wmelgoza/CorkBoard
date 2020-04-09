@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams, ModalController, NavController } from '@ionic/angular';
 import { ImageService } from '../image.service';
 import { Image } from '../image.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-image',
@@ -10,23 +10,54 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./image.page.scss'],
 })
 export class ImagePage implements OnInit {
-  information = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private imageService:ImageService) { }
+  image: Image;
+  data: any;
+  imageToShow: any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private imageService:ImageService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.imageService.getImage(id).subscribe(result => {
-      console.log('image: ',result);
-      this.information = result;
-  });
+  //   if (this.router.snapshot.data['special']){
+  //     this.data = this.router.snapshot.data['special'];
+  //   }
+  //   let id = this.activatedRoute.snapshot.paramMap.get('id');
+
+  //   this.imageService.getImage(id).subscribe(result => {
+  //     console.log('image: ',result);
+  //     this.data = result;
+  // });
+}
+createImageFromBlob(image: Blob) {
+  let reader = new FileReader();
+  reader.addEventListener("load", () => {
+     this.imageToShow = reader.result;
+  }, false);
+
+  if (image) {
+     reader.readAsDataURL(image);
+  }
 }
 
-  // private getImage(): void{
-  //   this.imageService.getImage().subscribe(
-  //     (response:any) => {
-  //       this.image = response.image;
-  //     }
-  //   )
+getImage(imageUrl: string) {
+      // this.isImageLoading = true;
+      this.imageService.getImage('https://picsum.photos/').subscribe(data => {
+        this.createImageFromBlob(data);
+        // this.isImageLoading = false;
+      }, error => {
+        // this.isImageLoading = false;
+        console.log(error);
+      });
+}
+
+openImageWithService() {
+  this.imageService.setData('', '');
+  this.router.navigateByUrl('/image/{image}')
+}
+
   }

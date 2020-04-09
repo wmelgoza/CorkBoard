@@ -45,4 +45,8 @@ export class BoardService {
   deleteBoard(title: string): Observable<Board>{
     return this.http.delete<Board>(this.url + title);
   }
+
+  createBoard(board: Board): Observable<Board>{
+    return this.http.post<Board>(this.url, board, httpOptions);
+  }
 }

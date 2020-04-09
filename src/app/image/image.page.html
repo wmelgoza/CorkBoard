@@ -3,24 +3,26 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ information?.Author }}</ion-title>
+    <ion-title>{{ data?.Author }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <ion-card *ngIf="information">
+  <ion-card>
     <ion-card-header>
       <ion-icon name="contact" slot="start"></ion-icon>
       <ion-card-title>
-        {{ information.Author }}
+        {{ data?.author }}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
 
-      <img [src]="information.Image" class="info-img">
-    </ion-card-content>
+      <img [src]="imageToShow" alt="Place image title" >
+        <ng-template #noImageFound>
+      <img src="fallbackImage.png" alt="Fallbackimage">
+ </ng-template>    </ion-card-content>
   </ion-card>
 
 </ion-content>

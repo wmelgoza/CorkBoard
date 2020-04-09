@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ImageService } from '../image.service';
+import { BoardService } from '../board.service'
+// import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
   selector: 'app-images',
@@ -9,11 +13,22 @@ import { AlertController } from '@ionic/angular';
 })
 export class ImagesPage {
 
+  image = [];
   imageList = [];
   nextPage = 'https://picsum.photos/v2/list?page=1';
 
-  constructor(private http: HttpClient, public alertController: AlertController) {
+  constructor(
+    public alertController: AlertController,
+    private http: HttpClient,
+    private router: Router,
+    private boardService: BoardService,
+    private imageService: ImageService
+    ) {
     this.loadImages();
+  }
+
+  openImage(){
+
   }
 
   loadImages(event?) {
@@ -58,7 +73,11 @@ export class ImagesPage {
           role: 'login',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel: blah');
+            console.log('Login');
+            // let alertController = alert.dismiss();
+            // async then.presentAlertPrompt().then(() => {
+
+            // })
           }
         }, {
           text: 'Sign in',
@@ -71,6 +90,83 @@ export class ImagesPage {
     });
     await alert.present();
   };
+
+  async presentAlertPrompt() {
+    const alert = await this.alertController.create({
+      header: 'Login',
+      inputs: [
+        {
+          name: 'name1',
+          type: 'text',
+          placeholder: 'Placeholder 1'
+        },
+        {
+          name: 'name2',
+          type: 'text',
+          id: 'name2-id',
+          value: 'hello',
+          placeholder: 'Placeholder 2'
+        },
+        // multiline input.
+        {
+          name: 'paragraph',
+          id: 'paragraph',
+          type: 'textarea',
+          placeholder: 'Placeholder 3'
+        },
+        {
+          name: 'name3',
+          value: 'http://ionicframework.com',
+          type: 'url',
+          placeholder: 'Favorite site ever'
+        },
+        // input date with min & max
+        {
+          name: 'name4',
+          type: 'date',
+          min: '2017-03-01',
+          max: '2018-01-12'
+        },
+        // input date without min nor max
+        {
+          name: 'name5',
+          type: 'date'
+        },
+        {
+          name: 'name6',
+          type: 'number',
+          min: -5,
+          max: 10
+        },
+        {
+          name: 'name7',
+          type: 'number'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async addImage() {
+
+
+  }
 
 }
 
