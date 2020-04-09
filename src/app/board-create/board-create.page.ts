@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BoardService } from '../board.service';
+import { Board } from '../board.model';
 
 @Component({
   selector: 'app-board-create',
@@ -7,9 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardCreatePage implements OnInit {
 
-  constructor() { }
+  board:Board = new Board();
+  errors: Array<any> = [];
+  errorMessage: string;
 
-  ngOnInit() {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private boardService: BoardService
+  ) { }
+
+  ngOnInit(): void {}
+
+  response(response:any): void{
+
+    if(response.success===false){
+      this.errors = response.error.errors;
+      this.errorMessage = response.error._message;
+    }
+
+    if(response.success===true){
+      this.router.navigate(['/boards']);
+    }
   }
+
+
+  // onSubmit(): void{
+  //   this.boardService.createBoard(this.board).subscribe(
+  //     (response:any) => {
+  //       this.response(response);
+  //     }
+  //   );
+  // }
 
 }

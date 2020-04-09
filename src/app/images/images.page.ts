@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
+
+import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
 import { ImageService } from '../image.service';
 import { BoardService } from '../board.service'
+
+import { AddImagePage } from '../add-image/add-image.page'
+import { AddImagePageModule } from '../add-image/add-image.module';
 // import { async } from 'rxjs/internal/scheduler/async';
 
 @Component({
@@ -22,7 +27,8 @@ export class ImagesPage {
     private http: HttpClient,
     private router: Router,
     private boardService: BoardService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private modalController: ModalController
     ) {
     this.loadImages();
   }
@@ -168,5 +174,11 @@ export class ImagesPage {
 
   }
 
-}
+  OpenModal (){
+    this.modalController.create({
+      component: AddImagePage}).then((modalElement)=>{
+        modalElement.present();
+      })
+  }
 
+}

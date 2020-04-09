@@ -11,13 +11,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common'
 import { from } from 'rxjs';
+
 import { ImagePageModule } from './image/image.module';
+import { AddImagePageModule } from './add-image/add-image.module';
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-     ImagePageModule],
+     ImagePageModule, AddImagePageModule],
   providers: [
     StatusBar,
     SplashScreen,
