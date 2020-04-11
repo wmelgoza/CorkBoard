@@ -1,16 +1,32 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title style="text-align: center;">Add Image</ion-title>
-    <ion-icon name="close" shape="round" size="small" slot="end"></ion-icon>
+  <ion-toolbar color="primary" strong="true">
+    <ion-title strong="true" style="text-align: center;">
+      Add Image
+    </ion-title>
+      <ion-button (click)="CloseModal ()" slot="end" shape="round">
+        <ion-icon name="close" size="large"></ion-icon>
+      </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content shape="round">
-  <ion-row padding>
-    <ion-button color="secondary" shape="round" size="medium">
-      Create Board
-    </ion-button>
-  </ion-row>
+  <ion-card padding>
+    <ion-card-content>
+      <ion-row padding>
+        <ion-button (click)="CreateBoard ()" color="secondary" shape="round" size="medium">
+          Create Board
+        </ion-button>
+      </ion-row>
+
+    <ion-list *ngIf="boards">
+      <ion-item *ngFor="let board of boards">
+
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+
+
+  </ion-card>
   <!-- <ion-row>
     <ion-button size="medium">{{ board.title }}</ion-button>
   </ion-row> -->

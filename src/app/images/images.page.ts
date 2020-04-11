@@ -5,9 +5,10 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { ImageService } from '../image.service';
-import { BoardService } from '../board.service'
+import { BoardService } from '../board.service';
+import { AuthService } from '../auth.service';
 
-import { AddImagePage } from '../add-image/add-image.page'
+import { AddImagePage } from '../add-image/add-image.page';
 import { AddImagePageModule } from '../add-image/add-image.module';
 // import { async } from 'rxjs/internal/scheduler/async';
 
@@ -28,13 +29,10 @@ export class ImagesPage {
     private router: Router,
     private boardService: BoardService,
     private imageService: ImageService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public authService: AuthService
     ) {
     this.loadImages();
-  }
-
-  openImage(){
-
   }
 
   loadImages(event?) {
@@ -71,19 +69,15 @@ export class ImagesPage {
   async presentAlertMultipleButtons() {
     const alert = await this.alertController.create({
       header: 'Welcome to CorkBoard',
-      // subHeader: 'Subtitle',
       message: 'Please sign in.',
       buttons: [
         {
           text: 'Log in',
           role: 'login',
           cssClass: 'secondary',
-          handler: () => {
+          handler: (login) => {
+            this.authService.logIn
             console.log('Login');
-            // let alertController = alert.dismiss();
-            // async then.presentAlertPrompt().then(() => {
-
-            // })
           }
         }, {
           text: 'Sign in',
@@ -97,88 +91,19 @@ export class ImagesPage {
     await alert.present();
   };
 
-  async presentAlertPrompt() {
-    const alert = await this.alertController.create({
-      header: 'Login',
-      inputs: [
-        {
-          name: 'name1',
-          type: 'text',
-          placeholder: 'Placeholder 1'
-        },
-        {
-          name: 'name2',
-          type: 'text',
-          id: 'name2-id',
-          value: 'hello',
-          placeholder: 'Placeholder 2'
-        },
-        // multiline input.
-        {
-          name: 'paragraph',
-          id: 'paragraph',
-          type: 'textarea',
-          placeholder: 'Placeholder 3'
-        },
-        {
-          name: 'name3',
-          value: 'http://ionicframework.com',
-          type: 'url',
-          placeholder: 'Favorite site ever'
-        },
-        // input date with min & max
-        {
-          name: 'name4',
-          type: 'date',
-          min: '2017-03-01',
-          max: '2018-01-12'
-        },
-        // input date without min nor max
-        {
-          name: 'name5',
-          type: 'date'
-        },
-        {
-          name: 'name6',
-          type: 'number',
-          min: -5,
-          max: 10
-        },
-        {
-          name: 'name7',
-          type: 'number'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: () => {
-            console.log('Confirm Ok');
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
 
   async addImage() {
+  }
 
+  getImage(){
 
   }
 
-  OpenModal (){
-    this.modalController.create({
-      component: AddImagePage}).then((modalElement)=>{
-        modalElement.present();
-      })
+  async OpenModal (){
+    const modal = await this.modalController.create({
+      component: AddImagePage
+    });
+    return await modal.present();
   }
 
 }

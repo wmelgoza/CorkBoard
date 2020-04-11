@@ -14,13 +14,14 @@ import { from } from 'rxjs';
 
 import { ImagePageModule } from './image/image.module';
 import { AddImagePageModule } from './add-image/add-image.module';
+import { BoardCreatePageModule } from './board-create/board-create.module';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule,
-     ImagePageModule, AddImagePageModule],
+     ImagePageModule, AddImagePageModule, BoardCreatePageModule],
   providers: [
     StatusBar,
     SplashScreen,

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'user-delete', loadChildren: './user-delete/user-delete.module#UserDeletePageModule'},
   { path: 'user-edit', loadChildren: './user-edit/user-edit.module#UserEditPageModule'},
   { path: 'user-create', loadChildren: './user-create/user-create.module#UserCreatePageModule'},
-  { path: 'boards', loadChildren: './boards/boards.module#BoardsPageModule'},
+  { path: 'boards/:title', loadChildren: './boards/boards.module#BoardsPageModule'},
   { path: 'board-create', loadChildren: './board-create/board-create.module#BoardCreatePageModule'},
   { path: 'board-edit', loadChildren: './board-edit/board-edit.module#BoardEditPageModule'},
   { path: 'board-delete', loadChildren: './board-delete/board-delete.module#BoardDeletePageModule'},

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoardService } from '../board.service';
 import { Board } from '../board.model';
+import { NavParams, ModalController } from '@ionic/angular'
 
 @Component({
   selector: 'app-board-create',
@@ -10,6 +11,8 @@ import { Board } from '../board.model';
 })
 export class BoardCreatePage implements OnInit {
 
+  @Input() boardTitle: string;
+
   board:Board = new Board();
   errors: Array<any> = [];
   errorMessage: string;
@@ -17,7 +20,9 @@ export class BoardCreatePage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private boardService: BoardService
+    private boardService: BoardService,
+    private navParams: NavParams,
+    private modalController: ModalController
   ) { }
 
   ngOnInit(): void {}
@@ -34,13 +39,5 @@ export class BoardCreatePage implements OnInit {
     }
   }
 
-
-  // onSubmit(): void{
-  //   this.boardService.createBoard(this.board).subscribe(
-  //     (response:any) => {
-  //       this.response(response);
-  //     }
-  //   );
-  // }
 
 }

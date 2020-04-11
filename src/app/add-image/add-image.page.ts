@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-
+import { BoardService } from '../board.service';
+import { Observable } from 'rxjs';
+import { Board } from '../board.model';
+import { BoardCreatePage } from '../board-create/board-create.page';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-image',
@@ -9,7 +14,14 @@ import { ModalController } from '@ionic/angular';
 })
 export class AddImagePage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  boards: Board
+
+  constructor(
+    private modalController: ModalController,
+    private boardService: BoardService,
+    private router: Router,
+    private http: HttpClient
+    ) { }
 
   ngOnInit() {
   }
@@ -18,4 +30,12 @@ export class AddImagePage implements OnInit {
     this.modalController.dismiss();
   }
 
-}
+  async CreateBoard (){
+    const modal = await this.modalController.create({
+      component: BoardCreatePage
+    });
+        return await modal.present();
+      }
+  }
+
+
