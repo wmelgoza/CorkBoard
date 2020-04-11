@@ -39,5 +39,9 @@ export class BoardCreatePage implements OnInit {
     }
   }
 
+  CloseModal (){
+    this.modalController.dismiss();
+  }
+
 
 }
