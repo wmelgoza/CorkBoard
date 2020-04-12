@@ -9,6 +9,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="board">
+  <ion-card>
+    <ion-item>
+      <ion-label position="floating">Board Name</ion-label>
+      <ion-input [(ngModel)]="board.title" name="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input [(ngModel)]="board.description" name="description"></ion-input>
+    </ion-item>
+    <ion-button (click)="onSubmit()" shape="round">
+      Create
+    </ion-button>
+  </ion-card>
+
 
 </ion-content>

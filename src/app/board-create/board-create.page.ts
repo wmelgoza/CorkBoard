@@ -11,7 +11,7 @@ import { NavParams, ModalController } from '@ionic/angular'
 })
 export class BoardCreatePage implements OnInit {
 
-  @Input() boardTitle: string;
+  // @Input() boardTitle: string;
 
   board:Board = new Board();
   errors: Array<any> = [];
@@ -41,6 +41,14 @@ export class BoardCreatePage implements OnInit {
 
   CloseModal (){
     this.modalController.dismiss();
+  }
+
+  onSubmit(): void{
+    this.boardService.createBoard(this.board).subscribe(
+      (response:any) => {
+        this.response(response);
+      }
+    );
   }
 
 

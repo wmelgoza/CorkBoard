@@ -6,6 +6,7 @@ import { Board } from '../board.model';
 import { BoardCreatePage } from '../board-create/board-create.page';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-image',
@@ -15,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class AddImagePage implements OnInit {
 
   boards: Board
+  title: Title
 
   constructor(
     private modalController: ModalController,
@@ -32,7 +34,10 @@ export class AddImagePage implements OnInit {
 
   async CreateBoard (){
     const modal = await this.modalController.create({
-      component: BoardCreatePage
+      component: BoardCreatePage,
+      componentProps: {
+        title: this.title
+      }
     });
         return await modal.present();
       }
